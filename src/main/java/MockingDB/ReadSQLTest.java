@@ -13,10 +13,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class ReadSQLTest {
-    @Test
-    public void bar() throws Exception {
-    }
-
     static Connection conn = mock(Connection.class);
     static Statement stmt = mock(Statement.class);
     static ResultSet rs = mock(ResultSet.class);
