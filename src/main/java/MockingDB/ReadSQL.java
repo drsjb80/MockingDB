@@ -35,6 +35,4 @@ public class ReadSQL {
             System.out.println(e.getMessage());
         }
     }
-    public static void bar() {}
-
 }
