@@ -12,7 +12,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class ReadSQLTest {
+public class CookiesTest {
     static Connection conn = mock(Connection.class);
     static Statement stmt = mock(Statement.class);
     static ResultSet rs = mock(ResultSet.class);
@@ -22,12 +22,12 @@ public class ReadSQLTest {
         when(conn.createStatement()).thenReturn(stmt);
         when(stmt.executeQuery(anyString())).thenReturn(rs);
         when(rs.next()).thenReturn(true, false);
-        when(rs.getString("host")).thenReturn("Host");
+        when(rs.getString("host")).thenReturn("www.msudenver.edu");
 
-        final ReadSQL readSQL = new ReadSQL();
-        readSQL.loadSQLCookies(conn);
+        final Cookies cookies = new Cookies();
+        cookies.loadSQLCookies(conn);
 
-        assertEquals("Host", readSQL.getCookie().getHost());
+        assertEquals("www.msudenver.edu", cookies.getCookies().get(0).getHost());
     }
 
 }

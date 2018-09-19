@@ -7,29 +7,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-class Cookie {
-    @Getter private String host;
+import java.util.List;
+import java.util.LinkedList;
 
-    Cookie(final String host) {
-        this.host = host;
+public class Cookies {
+    @Getter private List<Cookie> cookies = new LinkedList();
+
+    class Cookie {
+        @Getter private String host;
+
+        Cookie(final String host) {
+            this.host = host;
+        }
     }
-}
-
-public class ReadSQL {
-    @Getter Cookie cookie;
 
     public void loadSQLCookies(final Connection conn) {
         try {
-            final String sql = "SELECT * FROM moz_cookies";
-
             final Statement stmt = conn.createStatement();
+            final String sql = "SELECT * FROM moz_cookies";
             final ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                final String host = rs.getString("host");
-                System.out.println(host);
-
-                cookie = new Cookie(host);
+                cookies.add(new Cookie(rs.getString("host")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
