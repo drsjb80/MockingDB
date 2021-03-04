@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.LinkedList;
 
 public class Cookies {
-    @Getter private List<Cookie> cookies = new LinkedList();
+    @Getter private final List<Cookie> cookies = new LinkedList<>();
 
-    class Cookie {
-        @Getter private String host;
+    static class Cookie {
+        @Getter private final String host;
 
         Cookie(final String host) {
             this.host = host;
@@ -23,12 +23,13 @@ public class Cookies {
 
     public void loadSQLCookies(final Connection conn) {
         try {
-            final Statement stmt = conn.createStatement();
-            final String sql = "SELECT * FROM moz_cookies";
-            final ResultSet rs = stmt.executeQuery(sql);
+            try (Statement stmt = conn.createStatement()) {
+                final String sql = "SELECT * FROM moz_cookies";
+                final ResultSet rs = stmt.executeQuery(sql);
 
-            while (rs.next()) {
-                cookies.add(new Cookie(rs.getString("host")));
+                while (rs.next()) {
+                    cookies.add(new Cookie(rs.getString("host")));
+                }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -1,13 +1,10 @@
 package MockingDB;
 
-import org.junit.Test;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.NoSuchElementException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -27,7 +24,7 @@ public class CookiesTest {
         final Cookies cookies = new Cookies();
         cookies.loadSQLCookies(conn);
 
-        assertEquals("www.msudenver.edu", cookies.getCookies().get(0).getHost());
+        assertEquals("www.msudenver.edu",
+            cookies.getCookies().get(0).getHost());
     }
-
 }
